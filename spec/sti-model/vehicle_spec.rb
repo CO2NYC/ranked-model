@@ -4,15 +4,15 @@ describe Vehicle do
 
   before {
     @vehicles = {
-      :ford     => Car.create( :manufacturer => 'Ford' ),
-      :bmw      => Car.create( :manufacturer => 'BMW' ),
-      :daimler  => Truck.create( :manufacturer => 'Daimler' ),
-      :volvo    => Truck.create( :manufacturer => 'Volvo' ),
-      :kenworth => Truck.create( :manufacturer => 'Kenworth' )
+         :ford     => Car.create( :manufacturer => 'Ford' ),
+         :bmw      => Car.create( :manufacturer => 'BMW' ),
+         :daimler  => Truck.create( :manufacturer => 'Daimler' ),
+         :volvo    => Truck.create( :manufacturer => 'Volvo' ),
+         :kenworth => Truck.create( :manufacturer => 'Kenworth' )
     }
     @vehicles.each { |name, vehicle|
       vehicle.reload
-      vehicle.update_attribute :parking_order_position, 0
+      vehicle.update_attributes(:parking_order_position => 0)
     }
     @vehicles.each {|name, vehicle| vehicle.reload }
   }
@@ -20,8 +20,8 @@ describe Vehicle do
   describe "ranking by STI parent" do
 
     before {
-      @vehicles[:volvo].update_attribute :parking_order_position, :first
-      @vehicles[:ford].update_attribute :parking_order_position, :first
+      @vehicles[:volvo].update_attributes(:parking_order_position => :first)
+      @vehicles[:ford].update_attributes(:parking_order_position => :first)
     }
 
     describe "Vehicle" do
